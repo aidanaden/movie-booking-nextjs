@@ -40,12 +40,11 @@
     } */
 
     .container {
-        @apply font-moderat max-w-7xl mx-auto
-        min-h-max pb-24 px-4 xl:px-0
+        @apply font-moderat max-w-7xl mx-auto pb-24 px-4 lg:px-8 xl:px-0
     }
 
     .titleHeader {
-        @apply font-moderat_extended text-5xl
+        @apply font-moderat_extended text-4xl md:text-5xl
         uppercase text-center text-slate-50
         tracking-wider
     }
@@ -62,7 +61,7 @@
     }
 
     .cardOverview {
-        @apply text-base text-slate-400 line-clamp-4 mb-auto
+        @apply md:text-base text-slate-400 line-clamp-4 mb-auto
     }
 
     .cardRating {
@@ -79,9 +78,13 @@
         ease-out duration-200
     }
 
+    .sectionContainer {
+        @apply mt-14 sm:mt-16 lg:mt-24 xl:mt-32
+    }
+
     .sectionHeader {
         @apply font-moderat_extended text-4xl text-left
-        text-slate-50 mb-12 tracking-wide
+        text-slate-50 mb-8 lg:mb-12 xl:mb-12 tracking-wide
     }
 
     .sectionDateText {
@@ -90,12 +93,67 @@
     }
 
     .cinemaTitle {
-        @apply text-lg text-slate-50
+        @apply text-lg text-slate-50 capitalize
+    }
+
+    .cinemaDateTab {
+        @apply w-full p-4 text-sm xl:text-lg font-moderat_extended transition
+        duration-200 border-b-2 border-transparent cursor-pointer
+        text-center
+    }
+
+    .cinemaDateTabSelected {
+        @apply cinemaDateTab border-slate-50 text-slate-50
+    }
+
+    .cinemaDateTabUnselected {
+        @apply cinemaDateTab text-slate-600 hover:text-slate-50
+    }
+
+    .cinemaTimingContainer {
+        @apply flex flex-col gap-y-16 xl:gap-y-12
+    }
+
+    .cinemaTimingTextLine {
+        @apply uppercase cursor-pointer text-xl text-center
+        py-4 px-6 xl:py-4 xl:px-0 duration-200 transition
+        border-b-2 border-transparent
     }
 
     .cinemaTimingText {
-        @apply text-sm uppercase text-slate-400
-        hover:text-slate-50 line-clamp-2
+        @apply uppercase cursor-pointer text-xl text-center
+        rounded-md py-4 px-3 sm:py-4 sm:px-6 xl:py-2 xl:px-3
+        duration-200 transition border-b-2 border-transparent
+        text-slate-400 hover:text-slate-50 hover:bg-slate-600
+        border-2 border-slate-800
+    }
+
+    .cinemaTimingTextSoldLine {
+        @apply cinemaTimingText text-slate-800
+    }
+
+    .cinemaTimingTextSold {
+        @apply cinemaTimingText bg-slate-800 text-slate-600
+        hover:bg-slate-800 border-0 hover:text-slate-600
+        line-through
+    }
+
+    .cinemaTimingTextSellingLine {
+        @apply cinemaTimingText text-slate-400
+        hover:text-red-500 hover:border-red-500
+    }
+
+    .cinemaTimingTextSelling {
+        @apply cinemaTimingText underline
+    }
+
+    .cinemaTimingTextAvailableLine {
+        @apply cinemaTimingText text-slate-400
+        hover:border-slate-50 
+    }
+
+    .cinemaTimingTextAvailable {
+        @apply cinemaTimingText
     }
 
     .reviewText {

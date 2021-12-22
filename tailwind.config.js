@@ -34,10 +34,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {
-      lineClamp: ['responsive'],
-      scrollbar: ['rounded'],
-    },
+    lineClamp: ['responsive'],
+    scrollbar: ['rounded'],
+    extend: {},
   },
   plugins: [
     require('tailwind-scrollbar-hide'),
