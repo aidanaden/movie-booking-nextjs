@@ -133,9 +133,15 @@ const MovieCard = ({ movie }) => {
 export default function MovieList({ data }) {
     return (
         <section className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-            {data.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-            ))}
+            {data.map((movie) => {
+                if (movie.data.cinemas.length > 0)
+                    return(
+                        <MovieCard
+                            key={movie.id}
+                            movie={movie}
+                        />
+                    )
+            })}
         </section>
     )
 }

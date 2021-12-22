@@ -364,15 +364,17 @@ export default function index({ data }) {
                     </h2>
                     <VideoList videos={movieInfo.videos.results} />
                 </section>
-                {cinemasByDate &&
                 <section className='sectionContainer'>
                     {/* Timings section */}
                     <h2 className='sectionHeader'>
                         Timings
                     </h2>
-                    <DateSelector cinemasByDate={cinemasByDate} />
-                    <DateTabs cinemasByDate={cinemasByDate} />
-                </section>}
+                    {cinemasByDate.length > 0 &&
+                    <>
+                        <DateSelector cinemasByDate={cinemasByDate} />
+                        <DateTabs cinemasByDate={cinemasByDate} />
+                    </>}
+                </section>
                 <section className='sectionContainer'>
                     {/* Reviews section */}
                 </section>
