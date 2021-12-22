@@ -86,8 +86,6 @@ const VideoList = ({ videos }) => {
 }
 
 const CinemaRow = ({ cinemaName, timings }) => {
-    console.log('name of cinema: ', cinemaName)
-    console.log('len of dates of cinema: ', timings.length)
     return (
         <div
             className='flex flex-col gap-y-6
@@ -784,7 +782,6 @@ export default function movie() {
     })
 
     cinemasByDate.sort((date1, date2) => date1.date > date2.date ? 1 : -1)
-    console.log('unique dates among all cinemas: ', cinemasByDate)
 
     return (
         <main className='font-moderat text-slate-400'>

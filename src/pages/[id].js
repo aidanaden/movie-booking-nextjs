@@ -215,7 +215,6 @@ const DateSelector = ({ cinemasByDate }) => {
 }
 
 const DateTabs = ({ cinemasByDate }) => {
-    console.log(cinemasByDate[0].cinemas)
     return (
         <Tab.Group
             vertical
@@ -261,7 +260,6 @@ export default function index({ data }) {
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
     const dates = []
 
-    console.log('data: ', data.cinemas)
     data.cinemas.map((cinema) => {
         cinema.timings.map((timing) => {
             dates.push(timing.timing.split(' ')[0])
@@ -296,7 +294,6 @@ export default function index({ data }) {
     })
 
     cinemasByDate.sort((date1, date2) => date1.date > date2.date ? 1 : -1)
-    console.log('unique dates among all cinemas: ', cinemasByDate)
 
     return (
         <main className='font-moderat text-slate-400'>
