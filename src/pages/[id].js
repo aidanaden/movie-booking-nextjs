@@ -168,7 +168,7 @@ const DateSelector = ({ cinemasByDate }) => {
                             <Listbox.Options
                                 className="w-full py-3 px-2 mt-1 overflow-auto
                                 text-xl bg-slate-700 rounded-md flex flex-col
-                                gap-y-1 font-medium"
+                                gap-y-1 font-medium max-h-72"
                             >
                                 {cinemasByDate.map((dateData, i) => (
                                     <Listbox.Option
