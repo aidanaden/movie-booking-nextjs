@@ -144,7 +144,7 @@ const DateSelector = ({ cinemasByDate }) => {
                         <Listbox.Button
                             className="w-full py-4 px-4 text-left border-2
                             border-slate-800 text-slate-50 rounded-md cursor-default
-                            focus:bg-slate-600 focus:text-slate-400"
+                            active:bg-slate-600 active:text-slate-400"
                         >
                             <div className='relative text-center text-xl'>
                                 {selected.date}
