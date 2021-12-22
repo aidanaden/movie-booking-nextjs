@@ -4,6 +4,11 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import ReactPlayer from 'react-player/lazy'
 import { TMDB_IMG_URL, formatRuntime } from 'utils/urls'
 
+import 'swiper/css'
+import 'swiper/css/navigation'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation } from 'swiper'
+
 const ScoreIcon = ({ type, score, count }) => {
     const size = 42
     if (score) {
@@ -93,15 +98,15 @@ const CinemaRow = ({ cinema }) => {
     return (
         <div
             className='flex flex-col gap-y-6
-            xl:flex-row xl:gap-y-0 xl:gap-x-24'
+            xl:flex-row'
         >
             <h3
                 className='text-slate-50 capitalize text-2xl
-                font-medium xl:w-[256px]'
+                font-medium xl:w-[256px] xl:min-h-[6rem]'
             >
                 <span
-                    className='text-gv-yellow
-                    uppercase font-moderat_extended'
+                    className='text-gv-yellow uppercase
+                    font-moderat_extended'
                 >
                     {theatre}
                 </span>
@@ -111,7 +116,7 @@ const CinemaRow = ({ cinema }) => {
             <div className='hidden xl:flex xl:flex-1'/>
             <div
                 className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6
-                gap-x-6 gap-y-4'
+                gap-x-4 gap-y-4 min-w-max'
             >
                 {timings.map((timing, i) => (
                     <a
@@ -137,59 +142,57 @@ const DateSelector = ({ cinemasByDate }) => {
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="mt-1">
                         <Listbox.Button
-                            className="w-full py-2 pl-3 pr-10 text-left
-                            bg-white rounded-lg shadow-md cursor-default focus:outline-none
-                            focus-visible:ring-2 focus-visible:ring-opacity-75
-                            focus-visible:ring-white focus-visible:ring-offset-orange-300
-                            focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
+                            className="w-full py-4 px-4 text-left border-2
+                            border-slate-800 text-slate-50 rounded-md cursor-default
+                            focus:bg-slate-600 focus:text-slate-400"
                         >
-                            <span className="block truncate">{selected.date}</span>
-                            <span
-                                className="flex
-                                items-center pr-2 pointer-events-none"
-                            >
-                                <SelectorIcon
-                                    className="w-5 h-5 text-gray-400"
-                                    aria-hidden="true"
-                                />
-                            </span>
+                            <div className='relative text-center text-xl'>
+                                {selected.date}
+                                <span
+                                    className="flex absolute right-0 top-0 bottom-0
+                                    items-center pr-2 pointer-events-none"
+                                >
+                                    <SelectorIcon
+                                        className="w-6 h-6 text-slate-400"
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                            </div>
                         </Listbox.Button>
                         <Transition
                             as={Fragment}
-                            leave="transition ease-in duration-100"
+                            leave="transition ease-in duration-200"
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options
-                                className="w-full py-1 mt-1 overflow-auto
-                                text-base bg-white rounded-md shadow-lg max-h-60
-                                ring-1 ring-black ring-opacity-5 focus:outline-none
-                                sm:text-sm"
+                                className="w-full py-3 px-2 mt-1 overflow-auto
+                                text-xl bg-slate-700 rounded-md flex flex-col
+                                gap-y-1 font-medium"
                             >
                                 {cinemasByDate.map((dateData, i) => (
                                     <Listbox.Option
                                         key={i}
                                         className={({ active }) =>
-                                            `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
-                                            cursor-default select-none py-2 pl-10 pr-4`
+                                            `${active ? 'text-slate-800 bg-slate-200' : 'text-slate-400'}
+                                            cursor-default select-none py-2 px-3 flex flex-row text-center
+                                            relative rounded-md justify-center`
                                         }
                                         value={dateData}
                                     >
                                         {({ selected, active }) => (
                                             <>
-                                                <span
-                                                    className={`${selected ? 'font-medium' : 'font-normal'
-                                                        } block truncate`}
-                                                >
+                                                <span>
                                                     {dateData.date}
                                                 </span>
                                                 {selected ? (
                                                     <span
-                                                        className={`${active ? 'text-amber-600' : 'text-amber-600'
+                                                        className={`${active ? 'text-slate-800' : 'text-slate-800'
                                                             }
-                                                        flex items-center pl-3`}
+                                                            flex absolute right-0 top-0 bottom-0
+                                                            items-center pr-2 pointer-events-none`}
                                                     >
-                                                        <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                                                        <CheckIcon className="w-6 h-6" aria-hidden="true" />
                                                     </span>
                                                 ) : null}
                                             </>
@@ -214,6 +217,20 @@ const DateSelector = ({ cinemasByDate }) => {
     )
 }
 
+SwiperCore.use([Navigation])
+
+function DateSwiper(props) {
+    return (
+        <Swiper
+            navigation={true}
+            slidesPerView={5}
+            spaceBetween={30}
+        >
+            {props.children}
+        </Swiper>
+    )
+}
+
 const DateTabs = ({ cinemasByDate }) => {
     return (
         <Tab.Group
@@ -222,17 +239,21 @@ const DateTabs = ({ cinemasByDate }) => {
             className='hidden lg:flex lg:flex-col lg:gap-y-8'
         >
             <Tab.List className="flex flex-row">
-                {cinemasByDate.map((dateCinema, i) => (
-                    <Tab
-                        as='div'
-                        key={i}
-                        className={({ selected }) =>
-                            selected ? 'cinemaDateTabSelected' : 'cinemaDateTabUnselected'
-                        }
-                    >
-                        {dateCinema.date}
-                    </Tab>
-                ))}
+                <DateSwiper>
+                    {cinemasByDate.map((dateCinema, i) => (
+                        <SwiperSlide>
+                            <Tab
+                                as='div'
+                                key={i}
+                                className={({ selected }) =>
+                                    selected ? 'cinemaDateTabSelected' : 'cinemaDateTabUnselected'
+                                }
+                            >
+                                {dateCinema.date}
+                            </Tab>
+                        </SwiperSlide>
+                    ))}
+                </DateSwiper>
             </Tab.List>
             <div className='hidden xl:flex xl:flex-1 bg-red-400'/>
             <Tab.Panels>
@@ -318,12 +339,14 @@ export default function index({ data }) {
                         <p>
                             {movieInfo.tomatoData.rating}
                         </p>}
+                        {genreText &&
                         <p>
                             {genreText}
-                        </p>
+                        </p>}
+                        {movieInfo.runtime > 0 &&
                         <p className='uppercase'>
                             {formatRuntime(movieInfo.runtime)}
-                        </p>
+                        </p>}
                     </div>
                 </div>
                 {/* Overview section */}
@@ -331,6 +354,7 @@ export default function index({ data }) {
                     <div
                         className='flex flex-col-reverse xl:flex-row'
                     >
+                        {movieInfo.overview &&
                         <div className='mt-16 lg:mt-24 xl:mt-0 xl:mr-32'>
                             <h2 className='sectionHeader'>
                                 Overview
@@ -338,7 +362,7 @@ export default function index({ data }) {
                             <p className='text-base md:text-lg max-w-2xl'>
                                 {movieInfo.overview}
                             </p>
-                        </div>
+                        </div>}
                         {movieInfo.tomatoData.tomatoScore && movieInfo.tomatoData.tomatoScore.score &&
                         <div
                             className='flex flex-col gap-y-8 md:gap-y-0
@@ -358,25 +382,25 @@ export default function index({ data }) {
                     </div>
                 </section>
                 {/* Videos/Trailers section */}
+                {movieInfo.videos.results.length > 0 &&
                 <section className='sectionContainer'>
                     <h2 className='sectionHeader'>
                         Trailers
                     </h2>
                     <VideoList videos={movieInfo.videos.results} />
-                </section>
+                </section>}
+                {/* Timings section */}
+                {cinemasByDate.length > 0 &&
                 <section className='sectionContainer'>
-                    {/* Timings section */}
                     <h2 className='sectionHeader'>
                         Timings
                     </h2>
-                    {cinemasByDate.length > 0 &&
-                    <>
-                        <DateSelector cinemasByDate={cinemasByDate} />
-                        <DateTabs cinemasByDate={cinemasByDate} />
-                    </>}
-                </section>
+                    <DateSelector cinemasByDate={cinemasByDate} />
+                    <DateTabs cinemasByDate={cinemasByDate} />
+                </section>}
+                {/* Reviews section */}
                 <section className='sectionContainer'>
-                    {/* Reviews section */}
+                    
                 </section>
             </div>
             
