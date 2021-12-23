@@ -1,13 +1,17 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, Fragment, useRef } from 'react'
 import { Tab, Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline'
 import ReactPlayer from 'react-player/lazy'
 import { TMDB_IMG_URL, formatRuntime } from 'utils/urls'
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
+import { useRouter } from 'next/dist/client/router'
 
 const ScoreIcon = ({ type, score, count }) => {
     const size = 42
@@ -60,13 +64,17 @@ const ScoreIcon = ({ type, score, count }) => {
 
 const VideoThumbnail = ({ video }) => {
     return (
-        <div className='rounded-md bg-slate-800'>
+        <div
+            className='rounded-md bg-red-500 w-full aspect-video'
+        >
             <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${video}`}
-                light={true}
+                light={false}
                 style={{
-                    rounded: '6px',
+                    rounded: '6px'
                 }}
+                width='100%'
+                height='100%'
                 controls={true}
             />
         </div>
@@ -89,6 +97,10 @@ const VideoList = ({ videos }) => {
             ))}
         </div>
     )
+}
+
+const formatTimeDisplay = (dateTime) => {
+    return dateTime.split(' ').slice(1, 3).join(' ').trim()
 }
 
 const CinemaRow = ({ cinema }) => {
@@ -126,7 +138,7 @@ const CinemaRow = ({ cinema }) => {
                             'cinemaTimingTextAvailable'}
                         href={timing.status == 'SOLD OUT' ? '' : timing.url}
                     >
-                        {timing.timing.split(' ').slice(1, 3).join(' ').trim()}
+                        {formatTimeDisplay(timing.timing)}
                     </a>
                 ))}
             </div>
@@ -134,20 +146,25 @@ const CinemaRow = ({ cinema }) => {
     )
 }
 
+const formatDateDisplay = (dateText) => {
+    const dateParsed = parse(dateText, 'dd/MM/yyyy', new Date())
+    return format(dateParsed, 'EEE dd/MM/yyyy')
+}
+
 const DateSelector = ({ cinemasByDate }) => {
     const [selected, setSelected] = useState(cinemasByDate[0])
     return (
         <div className='lg:hidden'>
-            <div className="w-full mb-6">
+            <div className="sticky top-8 shadow-lg bg-woodsmoke-900 w-full mb-12">
                 <Listbox value={selected} onChange={setSelected}>
-                    <div className="mt-1">
+                    <div className="mt-1 relative">
                         <Listbox.Button
                             className="w-full py-4 px-4 text-left border-2
                             border-slate-800 text-slate-50 rounded-md cursor-default
                             active:bg-slate-600 active:text-slate-400"
                         >
-                            <div className='relative text-center text-xl'>
-                                {selected.date}
+                            <div className='relative text-center text-xl uppercase'>
+                                {formatDateDisplay(selected.date)}
                                 <span
                                     className="flex absolute right-0 top-0 bottom-0
                                     items-center pr-2 pointer-events-none"
@@ -166,9 +183,9 @@ const DateSelector = ({ cinemasByDate }) => {
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options
-                                className="w-full py-3 px-2 mt-1 overflow-auto
+                                className="w-full py-2 px-2 mt-1 overflow-auto
                                 text-xl bg-slate-700 rounded-md flex flex-col
-                                gap-y-1 font-medium max-h-72"
+                                gap-y-1 font-medium max-h-72 absolute z-40"
                             >
                                 {cinemasByDate.map((dateData, i) => (
                                     <Listbox.Option
@@ -176,14 +193,14 @@ const DateSelector = ({ cinemasByDate }) => {
                                         className={({ active }) =>
                                             `${active ? 'text-slate-800 bg-slate-200' : 'text-slate-400'}
                                             cursor-default select-none py-2 px-3 flex flex-row text-center
-                                            relative rounded-md justify-center`
+                                            relative rounded-md justify-center uppercase`
                                         }
                                         value={dateData}
                                     >
                                         {({ selected, active }) => (
                                             <>
                                                 <span>
-                                                    {dateData.date}
+                                                    {formatDateDisplay(dateData.date)}
                                                 </span>
                                                 {selected ? (
                                                     <span
@@ -219,15 +236,48 @@ const DateSelector = ({ cinemasByDate }) => {
 
 SwiperCore.use([Navigation])
 
+const useSwiperRef = () => {
+    const [wrapper, setWrapper] = useState(null);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        setWrapper(ref.current);
+    }, []);
+
+    return [
+        wrapper,
+        ref
+    ]
+}
+
 function DateSwiper(props) {
+    const [nextEl, nextElRef] = useSwiperRef();
+    const [prevEl, prevElRef] = useSwiperRef();
     return (
-        <Swiper
-            navigation={true}
-            slidesPerView={5}
-            spaceBetween={30}
-        >
-            {props.children}
-        </Swiper>
+        <>
+            <div
+                ref={prevElRef}
+                className='cinemaDateSwiperLeft'
+            >
+                <ChevronLeftIcon className="w-8 h-8" aria-hidden="true" />
+            </div>
+            <Swiper
+                slidesPerView={props.slidesPerView}
+                spaceBetween={30}
+                navigation={{
+                    prevEl,
+                    nextEl
+                }}
+            >
+                {props.children}
+            </Swiper>
+            <div
+                ref={nextElRef}
+                className='cinemaDateSwiperRight'
+            >
+                <ChevronRightIcon className="w-8 h-8" aria-hidden="true" />
+            </div>
+        </>
     )
 }
 
@@ -239,7 +289,7 @@ const DateTabs = ({ cinemasByDate }) => {
             className='hidden lg:flex lg:flex-col lg:gap-y-8'
         >
             <Tab.List className="flex flex-row">
-                <DateSwiper>
+                <DateSwiper slidesPerView={Math.min(cinemasByDate.length, 5)}>
                     {cinemasByDate.map((dateCinema, i) => (
                         <SwiperSlide>
                             <Tab
@@ -249,7 +299,7 @@ const DateTabs = ({ cinemasByDate }) => {
                                     selected ? 'cinemaDateTabSelected' : 'cinemaDateTabUnselected'
                                 }
                             >
-                                {dateCinema.date}
+                                {formatDateDisplay(dateCinema.date)}
                             </Tab>
                         </SwiperSlide>
                     ))}
@@ -276,9 +326,13 @@ const DateTabs = ({ cinemasByDate }) => {
 }
 
 export default function index({ data }) {
+    const router = useRouter()
     const movieInfo = data.info
     const genreText = movieInfo.genres.slice(0, 3).map(genre => { return genre.name }).join('/')
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
+    const trailer_url = movieInfo.videos.results.filter((video) => {
+        if (video.type == 'Trailer') return video
+    })[0]
     const dates = []
 
     data.cinemas.map((cinema) => {
@@ -302,7 +356,10 @@ export default function index({ data }) {
             }
             cinema.timings.map((timing) => {
                 if (timing.timing.includes(uniqueDate)) {
-                    cinemaDateData['timings'].push(timing)
+                    const formattedTiming = parse(timing.timing.trim(), 'dd/MM/yyyy hh:mm aa', new Date())
+                    if (formattedTiming.getTime() >= new Date().getTime()) {
+                        cinemaDateData['timings'].push(timing)
+                    }
                 }
             })
             if (cinemaDateData['timings'].length > 0) {
@@ -325,6 +382,20 @@ export default function index({ data }) {
                 loading='lazy'
             />
             <div className='container'>
+                {/* Back to home button */}
+                <button
+                    className='py-4 items-center justify-center
+                    mt-4 flex flex-row gap-x-1 xl:gap-x-2 text-slate-400
+                    hover:text-slate-50'
+                    onClick={() => router.back()}
+                >
+                    <ChevronLeftIcon
+                        className='w-6 h-6'
+                    />
+                    <span className='lg:text-lg'>
+                        Home
+                    </span>
+                </button>
                 {/* Movie title section */}
                 <div className='sectionContainer'>
                     <h1 className='titleHeader mb-6'>
@@ -382,18 +453,21 @@ export default function index({ data }) {
                     </div>
                 </section>
                 {/* Videos/Trailers section */}
-                {movieInfo.videos.results.length > 0 &&
+                {movieInfo.videos.results.length > 0 && trailer_url &&
                 <section className='sectionContainer'>
                     <h2 className='sectionHeader'>
-                        Trailers
+                        Trailer
                     </h2>
-                    <VideoList videos={movieInfo.videos.results} />
+                    {/* <VideoList videos={movieInfo.videos.results} /> */}
+                    <VideoThumbnail
+                        video={trailer_url.key}
+                    />
                 </section>}
                 {/* Timings section */}
                 {cinemasByDate.length > 0 &&
                 <section className='sectionContainer'>
                     <h2 className='sectionHeader'>
-                        Timings
+                        Showtimes
                     </h2>
                     <DateSelector cinemasByDate={cinemasByDate} />
                     <DateTabs cinemasByDate={cinemasByDate} />

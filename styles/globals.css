@@ -44,7 +44,7 @@
     }
 
     .titleHeader {
-        @apply font-moderat_extended text-4xl md:text-5xl
+        @apply font-moderat_extended text-3xl sm:text-4xl md:text-5xl
         uppercase text-center text-slate-50
         tracking-wider
     }
@@ -96,10 +96,23 @@
         @apply text-lg text-slate-50 capitalize
     }
 
+    .cinemaDateSwiperArrow {
+        @apply text-slate-400 hover:text-slate-200
+        self-center cursor-pointer py-3
+    }
+
+    .cinemaDateSwiperLeft {
+        @apply cinemaDateSwiperArrow pr-0
+    }
+
+    .cinemaDateSwiperRight {
+        @apply cinemaDateSwiperArrow pl-0
+    }
+
     .cinemaDateTab {
-        @apply w-full p-4 text-sm xl:text-lg font-moderat_extended transition
+        @apply w-full p-4 text-sm xl:text-lg transition
         duration-200 border-b-2 border-transparent cursor-pointer
-        text-center
+        text-center uppercase
     }
 
     .cinemaDateTabSelected {
