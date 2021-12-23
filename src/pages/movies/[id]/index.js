@@ -155,7 +155,7 @@ const DateSelector = ({ cinemasByDate }) => {
     const [selected, setSelected] = useState(cinemasByDate[0])
     return (
         <div className='lg:hidden'>
-            <div className="sticky top-8 shadow-lg bg-woodsmoke-900 w-full mb-12">
+            <div className="sticky top-4 shadow-lg bg-woodsmoke-900 w-full mb-12">
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="mt-1 relative">
                         <Listbox.Button

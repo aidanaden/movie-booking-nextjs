@@ -78,7 +78,7 @@ const MovieCard = ({ movie }) => {
     const movieInfo = movie.data.info
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
     return (
-        <NextLink href={`${movie.id}`}>
+        <NextLink href={`/movies/${movie.id}`}>
             <a className='flex flex-col'>
                 <div className="card min-h-[512px] flex flex-col flex-1">
                     <img
