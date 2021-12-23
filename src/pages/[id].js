@@ -513,6 +513,6 @@ export async function getStaticPaths() {
         })),
 
         // tells nextjs to show 404 if param not matched
-        fallback: false 
+        fallback: true 
     }
 }
