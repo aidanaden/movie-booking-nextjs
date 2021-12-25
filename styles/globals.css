@@ -60,6 +60,11 @@
         font-medium truncate
     }
 
+    .infoTag {
+        @apply rounded-md px-2 py-1 bg-slate-800
+        text-slate-400 text-sm uppercase
+    }
+
     .cardOverview {
         @apply md:text-base text-slate-400 line-clamp-4 mb-auto
     }

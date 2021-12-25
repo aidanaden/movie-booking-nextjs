@@ -13,8 +13,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation } from 'swiper'
 import { useRouter } from 'next/dist/client/router'
 
-const ScoreIcon = ({ type, score, count }) => {
+const ScoreIcon = ({ reviewUrl, type, score, count }) => {
     const size = 42
+    const audienceReviewUrl = `${reviewUrl}?type=verified_audience`
+    const criticReviewUrl = `${reviewUrl}?type=top_critics`
     if (score) {
         return (
             <div className='mt-auto'>
@@ -49,11 +51,14 @@ const ScoreIcon = ({ type, score, count }) => {
                         `Tomatometer` :
                         `Audience score`}
                     </h3>
-                    <p className='text-base text-slate-500 mt-0'>
+                    <a
+                        className='text-base text-slate-500 mt-0 hover:text-slate-50 hover:underline'
+                        href={type != 'audience' ? criticReviewUrl : audienceReviewUrl}
+                    >
                         {type != 'audience' ?
                         `${count} reviews` :
                         `${count} verified ratings`}
-                    </p> 
+                    </a>
                 </div>
             </div>
         )
@@ -81,18 +86,49 @@ const VideoThumbnail = ({ video }) => {
     )
 }
 
-const VideoList = ({ videos }) => {
+const CastThumbnail = ({ cast }) => {
+    return (
+        <div
+            className='card min-w-[180px] md:min-w-[200px]'
+        >
+            <img
+                src={`${TMDB_IMG_URL}/${cast.profile_path}`}
+                alt={`${cast.name} image`}
+                className='object-cover h-[256px] w-[256px] rounded-t-md'
+                loading='lazy'
+            />
+            <div className='p-4 pt-4 flex-1 flex flex-col'>
+                <div>
+                    <h3 className='cardTitle mb-2'>
+                        {cast.name}
+                    </h3>
+                    <p className='cardOverview'>
+                        {cast.character ? 
+                        <span className='italic'>{cast.character}</span> :
+                        cast.job}
+                    </p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const CastList = ({ castValues }) => {
     return (
         <div
             className='flex flex-row overflow-y-hidden space-x-4
             px-2 pt-2 pb-6 -m-2 overflow-x-scroll scrollbar-hide
-            md:scrollbar-default md:scrollbar-thin md:scrollbar-thumb-slate-600
-            md:scrollbar-track-transparent md:scrollbar-thumb-rounded-full'
-        >
-            {videos.map((video) => (
-                <VideoThumbnail
-                    key={video.id}
-                    video={video.key}
+            lg:scrollbar-default lg:scrollbar-thin lg:scrollbar-thumb-slate-600
+            lg:scrollbar-track-transparent lg:scrollbar-thumb-rounded-full'
+        >   
+            {castValues.director != '' &&
+            <CastThumbnail
+                cast={castValues.director}
+            />}
+            {castValues.popularCasts.map((cast) => (
+                <CastThumbnail
+                    key={cast.id}
+                    cast={cast}
                 />
             ))}
         </div>
@@ -155,9 +191,9 @@ const DateSelector = ({ cinemasByDate }) => {
     const [selected, setSelected] = useState(cinemasByDate[0])
     return (
         <div className='lg:hidden'>
-            <div className="sticky top-4 shadow-lg bg-woodsmoke-900 w-full mb-12">
+            <div className="sticky top-0 sticky:shadow-lg bg-woodsmoke-900 w-full mb-12">
                 <Listbox value={selected} onChange={setSelected}>
-                    <div className="mt-1 relative">
+                    <div className="mt-1 relative bg-woodsmoke-900 px-4 py-4 -mx-4">
                         <Listbox.Button
                             className="w-full py-4 px-4 text-left border-2
                             border-slate-800 text-slate-50 rounded-md cursor-default
@@ -183,7 +219,7 @@ const DateSelector = ({ cinemasByDate }) => {
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options
-                                className="w-full py-2 px-2 mt-1 overflow-auto
+                                className="w-full -mx-4 py-2 px-2 mt-1 overflow-auto
                                 text-xl bg-slate-700 rounded-md flex flex-col
                                 gap-y-1 font-medium max-h-72 absolute z-40"
                             >
@@ -333,15 +369,14 @@ export default function index({ data }) {
     const trailer_url = movieInfo.videos.results.filter((video) => {
         if (video.type == 'Trailer') return video
     })[0]
-    const dates = []
 
+    const dates = []
     data.cinemas.map((cinema) => {
         cinema.timings.map((timing) => {
             dates.push(timing.timing.split(' ')[0])
         })
     })
     const uniqueDates = Array.from(new Set(dates))
-
     const cinemasByDate = []
     uniqueDates.map((uniqueDate) => {
         const dateData = {
@@ -370,8 +405,23 @@ export default function index({ data }) {
             cinemasByDate.push(dateData)
         }
     })
-
     cinemasByDate.sort((date1, date2) => date1.date > date2.date ? 1 : -1)
+
+    const castValues = {
+        popularCasts: [],
+        director: ''
+    }
+    movieInfo.credits.cast.map((cast) => {
+        if (cast.popularity > 5.0)
+            castValues.popularCasts.push(cast)
+    })
+    movieInfo.credits.crew.map((crew) => {
+        if (crew.job == 'Director')
+            castValues.director = crew
+    })
+    
+    castValues.popularCasts = [...new Map(castValues.popularCasts.map(cast => [cast.name, cast])).values()];
+    castValues.popularCasts.sort((cast1, cast2) => cast1.popularity > cast2.popularity ? 1 : -1).reverse()
 
     return (
         <main className='font-moderat text-slate-400'>
@@ -403,20 +453,25 @@ export default function index({ data }) {
                     </h1>
                     <div
                         className='flex flex-col md:flex-row 
-                        space-y-1 md:space-y-0 md:space-x-6 px-auto
+                        space-y-1 md:space-y-0 md:space-x-3 px-auto
                         items-center justify-center tracking-wide'
                     >
-                        {movieInfo.tomatoData && 
-                        <p>
+                        {movieInfo.tomatoData.rating && 
+                        <p className='infoTag'>
                             {movieInfo.tomatoData.rating}
                         </p>}
-                        {genreText &&
-                        <p>
-                            {genreText}
-                        </p>}
                         {movieInfo.runtime > 0 &&
-                        <p className='uppercase'>
+                        <p className='infoTag'>
                             {formatRuntime(movieInfo.runtime)}
+                        </p>}
+                        {/* {movieInfo.genres.slice(0, 1).map(genre => (
+                            <p className='infoTag' key={genre.id}>
+                                {genre.name}
+                            </p>
+                        ))} */}
+                        {genreText &&
+                        <p className='infoTag'>
+                            {genreText}
                         </p>}
                     </div>
                 </div>
@@ -440,17 +495,28 @@ export default function index({ data }) {
                             md:flex-row md:gap-x-8 justify-center'
                         >
                             <ScoreIcon
+                                reviewUrl={movieInfo.reviewUrl}
                                 type='critic'
                                 score={movieInfo.tomatoData.tomatoScore.score}
                                 count={movieInfo.tomatoData.tomatoScore.count}
                             />
                             <ScoreIcon
+                                reviewUrl={movieInfo.reviewUrl}
                                 type='audience'
                                 score={movieInfo.tomatoData.audienceScore.score}
                                 count={movieInfo.tomatoData.audienceScore.count}
                             />
                         </div>}
                     </div>
+                </section>
+                {/* Cast section */}
+                <section className='sectionContainer'>
+                    <h2 className='sectionHeader'>
+                        Cast
+                    </h2>
+                    <CastList
+                        castValues={castValues}
+                    />
                 </section>
                 {/* Videos/Trailers section */}
                 {movieInfo.videos.results.length > 0 && trailer_url &&
@@ -483,9 +549,9 @@ export default function index({ data }) {
 }
 
 
-export async function getStaticProps({ params: { id } }) {
+export async function getStaticProps({ params: { slug } }) {
     // Return as props
-    const movie_res = await fetch(`http://128.199.142.207:8000/api/${id}`)
+    const movie_res = await fetch(`http://128.199.142.207:8000/api/${slug}`)
     const movie = await movie_res.json()
 
     return {
@@ -508,7 +574,7 @@ export async function getStaticPaths() {
     return {
         paths: movies.map(movie => ({
             params: { 
-                id: `${movie.id}`
+                slug: `${movie.slug}`
             }
         })),
 

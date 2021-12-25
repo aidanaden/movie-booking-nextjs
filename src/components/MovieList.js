@@ -41,8 +41,7 @@ const ScoreIcon = ({ type, score, count }) => {
 const InfoTag = ({ info }) => {
     return (
         <div
-            className='rounded-md px-2 py-1 bg-slate-800
-            text-slate-400 text-sm uppercase'
+            className='infoTag'
         >
             {info}
         </div>
@@ -77,8 +76,9 @@ const TheatreTag = ({ theatre }) => {
 const MovieCard = ({ movie }) => {
     const movieInfo = movie.data.info
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
+    console.log(movie.slug)
     return (
-        <NextLink href={`/movies/${movie.id}`}>
+        <NextLink href={`/movies/${movie.slug}`}>
             <a className='flex flex-col'>
                 <div className="card min-h-[512px] flex flex-col flex-1">
                     <img
