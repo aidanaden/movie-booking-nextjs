@@ -193,7 +193,7 @@ const DateSelector = ({ cinemasByDate }) => {
         <div className='lg:hidden'>
             <div className="sticky top-0 sticky:shadow-lg bg-woodsmoke-900 w-full mb-12">
                 <Listbox value={selected} onChange={setSelected}>
-                    <div className="mt-1 relative bg-woodsmoke-900 px-4 py-4 -mx-4">
+                    <div className="mt-1 bg-woodsmoke-900 px-4 py-4 -mx-4">
                         <Listbox.Button
                             className="w-full py-4 px-4 text-left border-2
                             border-slate-800 text-slate-50 rounded-md cursor-default
@@ -219,7 +219,7 @@ const DateSelector = ({ cinemasByDate }) => {
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options
-                                className="w-full -mx-4 py-2 px-2 mt-1 overflow-auto
+                                className="w-full mt-1 overflow-auto
                                 text-xl bg-slate-700 rounded-md flex flex-col
                                 gap-y-1 font-medium max-h-72 absolute z-40"
                             >
@@ -341,7 +341,7 @@ const DateTabs = ({ cinemasByDate }) => {
                     ))}
                 </DateSwiper>
             </Tab.List>
-            <div className='hidden xl:flex xl:flex-1 bg-red-400'/>
+            <div className='hidden xl:flex xl:flex-1'/>
             <Tab.Panels>
                 {cinemasByDate.map((dateCinema) => (
                     <Tab.Panel
@@ -579,6 +579,6 @@ export async function getStaticPaths() {
         })),
 
         // tells nextjs to show 404 if param not matched
-        fallback: false 
+        fallback: false
     }
 }
