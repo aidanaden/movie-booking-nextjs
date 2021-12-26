@@ -476,23 +476,24 @@ export default function index({ data }) {
                     </div>
                 </div>
                 {/* Overview section */}
+                {movieInfo.overview &&
                 <section className='sectionContainer'>
                     <div
                         className='flex flex-col-reverse xl:flex-row'
                     >
-                        {movieInfo.overview &&
-                        <div className='mt-16 lg:mt-24 xl:mt-0 xl:mr-32'>
+                        <div>
                             <h2 className='sectionHeader'>
                                 Overview
                             </h2>
                             <p className='text-base md:text-lg max-w-2xl'>
                                 {movieInfo.overview}
                             </p>
-                        </div>}
+                        </div>
                         {movieInfo.tomatoData.tomatoScore && movieInfo.tomatoData.tomatoScore.score &&
                         <div
                             className='flex flex-col gap-y-8 md:gap-y-0
-                            md:flex-row md:gap-x-8 justify-center'
+                            md:flex-row md:gap-x-8 justify-center
+                            mb-16 lg:mb-24 xl:mb-0 xl:ml-32'
                         >
                             <ScoreIcon
                                 reviewUrl={movieInfo.reviewUrl}
@@ -508,8 +509,9 @@ export default function index({ data }) {
                             />
                         </div>}
                     </div>
-                </section>
+                </section>}
                 {/* Cast section */}
+                {castValues.popularCasts.length > 0 &&
                 <section className='sectionContainer'>
                     <h2 className='sectionHeader'>
                         Cast
@@ -517,7 +519,7 @@ export default function index({ data }) {
                     <CastList
                         castValues={castValues}
                     />
-                </section>
+                </section>}
                 {/* Videos/Trailers section */}
                 {movieInfo.videos.results.length > 0 && trailer_url &&
                 <section className='sectionContainer'>
