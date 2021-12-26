@@ -166,7 +166,7 @@
     }
 
     .cinemaTimingTextSelling {
-        @apply cinemaTimingText underline
+        @apply cinemaTimingText underline border-slate-500
     }
 
     .cinemaTimingTextAvailableLine {
