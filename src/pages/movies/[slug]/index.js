@@ -170,7 +170,7 @@ const CinemaRow = ({ cinema }) => {
                     <a
                         key={i}
                         className={timing.status == 'SOLD OUT' ? 'cinemaTimingTextSold' :
-                            timing.stauts == 'SELLING FAST' ? 'cinemaTimingTextSelling' :
+                            timing.status == 'SELLING FAST' ? 'cinemaTimingTextSelling' :
                             'cinemaTimingTextAvailable'}
                         href={timing.status == 'SOLD OUT' ? '' : timing.url}
                     >
@@ -219,7 +219,7 @@ const DateSelector = ({ cinemasByDate }) => {
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options
-                                className="w-full mt-1 overflow-auto
+                                className="w-full p-2 mt-1 overflow-auto
                                 text-xl bg-slate-700 rounded-md flex flex-col
                                 gap-y-1 font-medium max-h-72 absolute z-40"
                             >

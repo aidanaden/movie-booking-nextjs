@@ -76,7 +76,7 @@ const TheatreTag = ({ theatre }) => {
 const MovieCard = ({ movie }) => {
     const movieInfo = movie.data.info
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
-    console.log(movie.slug)
+    console.log(`${movieInfo.title} with ${movie.data.cinemas.length} cinemas`)
     return (
         <NextLink href={`/movies/${movie.slug}`}>
             <a className='flex flex-col'>
@@ -93,9 +93,11 @@ const MovieCard = ({ movie }) => {
                                 {movieInfo.title}
                             </h3>
                             <div className='flex flex-row flex-wrap gap-2 mb-4'>
-                                <InfoTag key={movieInfo.genres[0].id} info={movieInfo.genres[0].name} />
+                                {movieInfo.genres.length > 0 &&
+                                <InfoTag key={movieInfo.genres[0].id} info={movieInfo.genres[0].name} />}
                                 <InfoTag info={formatRuntime(movieInfo.runtime)} />
-                                {movieInfo.tomatoData.rating && <InfoTag info={movieInfo.tomatoData.rating} />}
+                                {movieInfo.tomatoData.rating &&
+                                <InfoTag info={movieInfo.tomatoData.rating} />}
                             </div>
                             <p className='cardOverview'>
                                 {movieInfo.overview}
@@ -131,6 +133,7 @@ const MovieCard = ({ movie }) => {
 }
 
 export default function MovieList({ data }) {
+    data.sort((movie1, movie2) => movie1.data.cinemas.length > movie2.data.cinemas.length ? 1 : -1).reverse()
     return (
         <section className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
             {data.map((movie) => {
