@@ -407,7 +407,7 @@ export default function index({ data }) {
             cinemasByDate.push(dateData)
         }
     })
-    cinemasByDate.sort((date1, date2) => date1.date > date2.date ? 1 : -1)
+    cinemasByDate.sort((date1, date2) => parse(date1.date, 'dd/MM/yyyy', new Date()).getTime() > parse(date2.date, 'dd/MM/yyyy', new Date()).getTime() ? 1 : -1)
 
     const castValues = {
         popularCasts: [],
