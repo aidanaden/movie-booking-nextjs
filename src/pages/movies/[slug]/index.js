@@ -70,7 +70,7 @@ const ScoreIcon = ({ reviewUrl, type, score, count }) => {
 const VideoThumbnail = ({ video }) => {
     return (
         <div
-            className='rounded-md bg-red-500 w-full aspect-video'
+            className='rounded-md w-full aspect-video'
         >
             <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${video}`}
