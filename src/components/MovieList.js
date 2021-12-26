@@ -76,7 +76,6 @@ const TheatreTag = ({ theatre }) => {
 const MovieCard = ({ movie }) => {
     const movieInfo = movie.data.info
     const image_path = movieInfo.backdrop_path || movieInfo.poster_path
-    console.log(`${movieInfo.title} with ${movie.data.cinemas.length} cinemas`)
     return (
         <NextLink href={`/movies/${movie.slug}`}>
             <a className='flex flex-col'>
