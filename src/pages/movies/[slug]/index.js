@@ -492,8 +492,8 @@ export default function index({ data }) {
                         {movieInfo.tomatoData.tomatoScore && movieInfo.tomatoData.tomatoScore.score &&
                         <div
                             className='flex flex-col gap-y-8 md:gap-y-0
-                            md:flex-row md:gap-x-8 justify-center
-                            mb-16 lg:mb-24 xl:mb-0 xl:ml-32'
+                            md:flex-row md:gap-x-8 justify-center self-center
+                            mb-16 lg:mb-24 xl:mb-0 xl:mx-auto'
                         >
                             <ScoreIcon
                                 reviewUrl={movieInfo.reviewUrl}

@@ -107,11 +107,11 @@
     }
 
     .cinemaDateSwiperLeft {
-        @apply cinemaDateSwiperArrow pr-0
+        @apply cinemaDateSwiperArrow pr-8
     }
 
     .cinemaDateSwiperRight {
-        @apply cinemaDateSwiperArrow pl-0
+        @apply cinemaDateSwiperArrow pl-8
     }
 
     .cinemaDateTab {
