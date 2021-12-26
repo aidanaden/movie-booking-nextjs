@@ -95,7 +95,8 @@ const MovieCard = ({ movie }) => {
                             <div className='flex flex-row flex-wrap gap-2 mb-4'>
                                 {movieInfo.genres.length > 0 &&
                                 <InfoTag key={movieInfo.genres[0].id} info={movieInfo.genres[0].name} />}
-                                <InfoTag info={formatRuntime(movieInfo.runtime)} />
+                                {movieInfo.runtime > 0 &&
+                                <InfoTag info={formatRuntime(movieInfo.runtime)} />}
                                 {movieInfo.tomatoData.rating &&
                                 <InfoTag info={movieInfo.tomatoData.rating} />}
                             </div>
