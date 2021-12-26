@@ -153,8 +153,10 @@ const CinemaRow = ({ cinema }) => {
                 font-medium xl:w-[256px] xl:min-h-[6rem]'
             >
                 <span
-                    className='text-gv-yellow uppercase
-                    font-moderat_extended'
+                    className={`cinemaTheatreTitle
+                    ${theatre == 'shaw' ? 'text-shaw-red'
+                    : theatre == 'gv' ? 'text-gv-yellow' :
+                    'text-cathay-pink'}`}
                 >
                     {theatre}
                 </span>

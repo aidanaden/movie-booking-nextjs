@@ -101,6 +101,10 @@
         @apply text-lg text-slate-50 capitalize
     }
 
+    .cinemaTheatreTitle {
+        @apply uppercase font-moderat_extended
+    }
+
     .cinemaDateSwiperArrow {
         @apply text-slate-400 hover:text-slate-200
         self-center cursor-pointer py-3
