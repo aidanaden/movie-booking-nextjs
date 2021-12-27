@@ -6,6 +6,7 @@ import ReactPlayer from 'react-player/lazy'
 import { TMDB_IMG_URL, formatRuntime } from 'utils/urls'
 import parse from 'date-fns/parse'
 import format from 'date-fns/format'
+import NextImage from 'next/image'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -27,7 +28,7 @@ const ScoreIcon = ({ reviewUrl, type, score, count }) => {
                         'flex flex-row space-x-3 justify-center'
                     }
                 >
-                    <img
+                    <NextImage
                         height={size}
                         width={size}
                         src={type != 'audience' && Number(score) <= 60 ?
@@ -91,10 +92,12 @@ const CastThumbnail = ({ cast }) => {
         <div
             className='card min-w-[180px] md:min-w-[200px]'
         >
-            <img
+            <NextImage
+                height={256}
+                width={256}
                 src={`${TMDB_IMG_URL}/${cast.profile_path}`}
                 alt={`${cast.name} image`}
-                className='object-cover h-[256px] w-[256px] rounded-t-md'
+                className='object-cover rounded-t-md'
                 loading='lazy'
             />
             <div className='p-4 pt-4 flex-1 flex flex-col'>

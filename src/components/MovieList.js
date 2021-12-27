@@ -13,7 +13,7 @@ const ScoreIcon = ({ type, score, count }) => {
                     'flex flex-row space-x-2 items-center'
                 }
             >
-                <img
+                <NextImage
                     height={size}
                     width={size}
                     src={type != 'audience' && Number(score) <= 60 ?
@@ -80,7 +80,9 @@ const MovieCard = ({ movie }) => {
         <NextLink href={`/movies/${movie.slug}`}>
             <a className='flex flex-col'>
                 <div className="card min-h-[512px] flex flex-col flex-1">
-                    <img
+                    <NextImage
+                        height={256}
+                        width={256}
                         src={`${TMDB_IMG_URL}/${image_path}`}
                         alt=''
                         className='object-cover w-full h-[256px] rounded-t-md'
