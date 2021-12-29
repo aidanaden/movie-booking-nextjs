@@ -27,7 +27,7 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const fetchData = await fetch(`http://128.199.142.207:8000/api/`)
+  const fetchData = await fetch(`https://api.showtimesg.com/api/`)
   const dataJson = await fetchData.json()
   return {
     props: {

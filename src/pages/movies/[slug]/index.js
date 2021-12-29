@@ -558,7 +558,7 @@ export default function index({ data }) {
 
 export async function getStaticProps({ params: { slug } }) {
     // Return as props
-    const movie_res = await fetch(`http://128.199.142.207:8000/api/${slug}`)
+    const movie_res = await fetch(`https://api.showtimesg.com/api/${slug}`)
     const movie = await movie_res.json()
 
     return {
@@ -574,7 +574,7 @@ export async function getStaticProps({ params: { slug } }) {
 
 export async function getStaticPaths() {
     // retrieve all possible paths
-    const movie_res = await fetch(`http://128.199.142.207:8000/api/`)
+    const movie_res = await fetch(`https://api.showtimesg.com/api/`)
     const movies = await movie_res.json()
     
     // return to NextJS context
