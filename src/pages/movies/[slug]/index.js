@@ -555,9 +555,8 @@ export default function index({ data }) {
     )
 }
 
-
-export async function getStaticProps({ params: { slug } }) {
-    // Return as props
+export async function getServerSideProps(context) {
+    const slug = context.query.slug
     const movie_res = await fetch(`https://api.showtimesg.com/api/${slug}`)
     const movie = await movie_res.json()
 
@@ -565,27 +564,39 @@ export async function getStaticProps({ params: { slug } }) {
         props: {
             data: movie.data
         },
-        // Next.js will attempt to re-generate the page:
-        // - When a request comes in
-        // - At most once every 10 seconds
-        revalidate: 1, // In seconds
     }
 }
 
-export async function getStaticPaths() {
-    // retrieve all possible paths
-    const movie_res = await fetch(`https://api.showtimesg.com/api/`)
-    const movies = await movie_res.json()
+// export async function getStaticProps({ params: { slug } }) {
+//     // Return as props
+//     const movie_res = await fetch(`https://api.showtimesg.com/api/${slug}`)
+//     const movie = await movie_res.json()
+
+//     return {
+//         props: {
+//             data: movie.data
+//         },
+//         // Next.js will attempt to re-generate the page:
+//         // - When a request comes in
+//         // - At most once every 10 seconds
+//         revalidate: 1, // In seconds
+//     }
+// }
+
+// export async function getStaticPaths() {
+//     // retrieve all possible paths
+//     const movie_res = await fetch(`https://api.showtimesg.com/api/`)
+//     const movies = await movie_res.json()
     
-    // return to NextJS context
-    return {
-        paths: movies.map(movie => ({
-            params: { 
-                slug: `${movie.slug}`
-            }
-        })),
+//     // return to NextJS context
+//     return {
+//         paths: movies.map(movie => ({
+//             params: { 
+//                 slug: `${movie.slug}`
+//             }
+//         })),
 
-        // tells nextjs to show 404 if param not matched
-        fallback: false
-    }
-}
+//         // tells nextjs to show 404 if param not matched
+//         fallback: false
+//     }
+// }
