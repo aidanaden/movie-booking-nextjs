@@ -382,6 +382,7 @@ export default function index({ data }) {
         })
     })
     const uniqueDates = Array.from(new Set(dates))
+    console.log('unique dates: ', uniqueDates)
     const cinemasByDate = []
     uniqueDates.map((uniqueDate) => {
         const dateData = {
