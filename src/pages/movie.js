@@ -69,9 +69,9 @@ const VideoList = ({ videos }) => {
   return (
     <div
       className="md:scrollbar-thumb-rounded-full -m-2 flex flex-row
-            space-x-4 overflow-x-scroll px-2 pt-2 pb-6 scrollbar-hide
-            overflow-y-hidden md:scrollbar-default md:scrollbar-thin
-            md:scrollbar-track-transparent md:scrollbar-thumb-slate-600"
+                space-x-4 overflow-x-scroll px-2 pt-2 pb-6 scrollbar-hide
+                overflow-y-hidden md:scrollbar-default md:scrollbar-thin
+                md:scrollbar-track-transparent md:scrollbar-thumb-slate-600"
     >
       {videos.map((video) => (
         <VideoThumbnail key={video.id} video={video.key} />
@@ -82,11 +82,7 @@ const VideoList = ({ videos }) => {
 
 const CinemaRow = ({ cinemaName, timings }) => {
   return (
-    <div
-      className="flex flex-col justify-start
-            gap-y-6 md:flex-row md:gap-y-0
-            md:gap-x-24"
-    >
+    <div className="flex flex-col justify-start gap-y-6 md:flex-row md:gap-y-0 md:gap-x-24">
       <h3 className="font-moderat_extended text-2xl capitalize text-slate-50">
         {/* <span className='text-gv-yellow'>{theatre}</span> */}
         {cinemaName}
@@ -95,9 +91,8 @@ const CinemaRow = ({ cinemaName, timings }) => {
         {timings.map((timing, i) => (
           <a
             key={i}
-            className="rounded-md bg-slate-800
-                        py-2 px-3 text-xl uppercase
-                        text-slate-400 transition duration-200 hover:bg-slate-600 hover:text-slate-50"
+            className="uppercasetext-slate-400 rounded-md bg-slate-800 py-2 px-3
+            text-xl transition duration-200 hover:bg-slate-600 hover:text-slate-50"
             href={timing.url}
           >
             {timing.split(" ").slice(1, 3).join(" ")}
