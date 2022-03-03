@@ -30,7 +30,7 @@
         font-style: normal;
     }
     body {
-        @apply scrollbar-thin bg-woodsmoke-900;
+        @apply bg-woodsmoke-900 scrollbar-thin;
     }
 }
 
@@ -40,161 +40,161 @@
     } */
 
     .container {
-        @apply font-moderat max-w-7xl mx-auto pb-24 px-4 lg:px-8 xl:px-0
+        @apply mx-auto max-w-7xl px-4 pb-24 font-moderat lg:px-8 xl:px-0;
     }
 
     .titleHeader {
-        @apply font-moderat_extended text-3xl sm:text-4xl md:text-5xl
-        uppercase text-center text-slate-50
-        tracking-wider
+        @apply text-center font-moderat_extended text-3xl uppercase
+        tracking-wider text-slate-50 sm:text-4xl
+        md:text-5xl;
     }
 
     .card {
-        @apply border-2 border-slate-800 rounded-md
-        hover:border-slate-600 transition duration-200
-        cursor-pointer
+        @apply cursor-pointer rounded-md border-2
+        border-slate-800 transition duration-200
+        hover:border-slate-600;
     }
 
     .cardTitle {
-        @apply text-2xl text-slate-50  font-moderat
-        font-medium truncate
+        @apply truncate font-moderat  text-2xl
+        font-medium text-slate-50;
     }
 
     .infoTag {
-        @apply rounded-md px-2 py-1 bg-slate-800
-        text-slate-400 text-sm uppercase
+        @apply rounded-md bg-slate-800 px-2 py-1
+        text-sm uppercase text-slate-400;
     }
 
     .cardOverview {
-        @apply md:text-base text-slate-400 line-clamp-4 mb-auto
+        @apply mb-auto text-slate-400 line-clamp-4 md:text-base;
     }
 
     .cardRating {
-        @apply text-xl text-slate-50
+        @apply text-xl text-slate-50;
     }
 
     .cardTheatreTag {
-        @apply rounded-md py-1 px-2 uppercase
+        @apply rounded-md py-1 px-2 uppercase;
     }
 
     .theatreTabText {
-        @apply text-2xl uppercase text-slate-800
-        hover:text-slate-50 transition cursor-pointer
-        ease-out duration-200
+        @apply cursor-pointer text-2xl uppercase
+        text-slate-800 transition duration-200
+        ease-out hover:text-slate-50;
     }
 
     .sectionContainer {
-        @apply mt-14 sm:mt-16 lg:mt-24 xl:mt-32
+        @apply mt-14 sm:mt-16 lg:mt-24 xl:mt-32;
     }
 
     .sectionHeader {
-        @apply font-moderat_extended text-4xl text-left
-        text-slate-50 mb-8 lg:mb-12 xl:mb-12 tracking-wide
+        @apply mb-8 text-left font-moderat_extended
+        text-4xl tracking-wide text-slate-50 lg:mb-12 xl:mb-12;
     }
 
     .sectionDateText {
-        @apply text-base text-slate-600
-        hover:text-slate-50 uppercase
+        @apply text-base uppercase
+        text-slate-600 hover:text-slate-50;
     }
 
     .cinemaTitle {
-        @apply text-lg text-slate-50 capitalize
+        @apply text-lg capitalize text-slate-50;
     }
 
     .cinemaTheatreTitle {
-        @apply uppercase font-moderat_extended
+        @apply font-moderat_extended uppercase;
     }
 
     .cinemaDateSwiperArrow {
-        @apply text-slate-400 hover:text-slate-200
-        self-center cursor-pointer py-3
+        @apply cursor-pointer self-center
+        py-3 text-slate-400 hover:text-slate-200;
     }
 
     .cinemaDateSwiperLeft {
-        @apply cinemaDateSwiperArrow pr-8
+        @apply cinemaDateSwiperArrow pr-8;
     }
 
     .cinemaDateSwiperRight {
-        @apply cinemaDateSwiperArrow pl-8
+        @apply cinemaDateSwiperArrow pl-8;
     }
 
     .cinemaDateTab {
-        @apply w-full p-4 text-sm xl:text-lg transition
-        duration-200 border-b-2 border-transparent cursor-pointer
-        text-center uppercase
+        @apply w-full cursor-pointer border-b-2 border-transparent p-4
+        text-center text-sm uppercase transition
+        duration-200 xl:text-lg;
     }
 
     .cinemaDateTabSelected {
-        @apply cinemaDateTab border-slate-50 text-slate-50
+        @apply cinemaDateTab border-slate-50 text-slate-50;
     }
 
     .cinemaDateTabUnselected {
-        @apply cinemaDateTab text-slate-600 hover:text-slate-50
+        @apply cinemaDateTab text-slate-600 hover:text-slate-50;
     }
 
     .cinemaTimingContainer {
-        @apply flex flex-col gap-y-16 xl:gap-y-24
+        @apply flex flex-col gap-y-16 xl:gap-y-24;
     }
 
     .cinemaTimingTextLine {
-        @apply uppercase cursor-pointer text-xl text-center
-        py-4 px-6 xl:py-4 xl:px-0 duration-200 transition
-        border-b-2 border-transparent
+        @apply cursor-pointer border-b-2 border-transparent py-4
+        px-6 text-center text-xl uppercase transition duration-200
+        xl:py-4 xl:px-0;
     }
 
     .cinemaTimingText {
-        @apply uppercase cursor-pointer text-xl text-center
-        rounded-md py-4 px-3 sm:py-4 sm:px-6 xl:py-2 xl:px-3
-        duration-200 transition border-b-2 border-transparent
-        text-slate-400 hover:text-slate-50 hover:bg-slate-600
-        border-2 border-slate-800 h-fit min-w-[8rem]
+        @apply h-fit min-w-[8rem] cursor-pointer rounded-md
+        border-2 border-b-2 border-transparent border-slate-800 py-4 px-3 text-center
+        text-xl uppercase text-slate-400 transition
+        duration-200 hover:bg-slate-600 hover:text-slate-50
+        sm:py-4 sm:px-6 xl:py-2 xl:px-3;
     }
 
     .cinemaTimingTextSoldLine {
-        @apply cinemaTimingText text-slate-800
+        @apply cinemaTimingText text-slate-800;
     }
 
     .cinemaTimingTextSold {
         @apply cinemaTimingText bg-slate-800 text-slate-600
-        hover:bg-slate-800 hover:text-slate-600
-        line-through
+        line-through hover:bg-slate-800
+        hover:text-slate-600;
     }
 
     .cinemaTimingTextSellingLine {
         @apply cinemaTimingText text-slate-400
-        hover:text-red-500 hover:border-red-500
+        hover:border-red-500 hover:text-red-500;
     }
 
     .cinemaTimingTextSelling {
-        @apply cinemaTimingText underline border-slate-500
+        @apply cinemaTimingText border-slate-500 underline;
     }
 
     .cinemaTimingTextAvailableLine {
         @apply cinemaTimingText text-slate-400
-        hover:border-slate-50 
+        hover:border-slate-50;
     }
 
     .cinemaTimingTextAvailable {
-        @apply cinemaTimingText
+        @apply cinemaTimingText;
     }
 
     .reviewText {
-        @apply text-slate-400
+        @apply text-slate-400;
     }
 
     .reviewAuthorName {
-        @apply text-slate-50 capitalize text-sm
+        @apply text-sm capitalize text-slate-50;
     }
 
     .reviewAuthorCompany {
-        @apply text-slate-400 text-sm
+        @apply text-sm text-slate-400;
     }
-    
+
     .reviewRatingText {
-        @apply text-lg text-gv-yellow text-right
+        @apply text-right text-lg text-gv-yellow;
     }
 
     .reviewDateText {
-        @apply text-sm text-slate-400
+        @apply text-sm text-slate-400;
     }
 }
