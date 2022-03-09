@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url("https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"); */
+
+@layer base {
+    @font-face {
+        font-family: 'Moderat';
+        src: url('../public/fonts/Moderat-Regular.woff') format('woff'),
+            url('../public/fonts/Moderat-Regular.woff2') format('woff2');
+        font-weight: normal;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Moderat';
+        src: url('../public/fonts/Moderat-Medium.woff') format('woff'),
+            url('../public/fonts/Moderat-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Moderat Extended';
+        src: url('../public/fonts/Moderat-Extended-Bold.woff') format('woff'),
+            url('../public/fonts/Moderat-Extended-Bold.woff2') format('woff2');
+        font-weight: bold;
+        font-display: swap;
+        font-style: normal;
+    }
+    body {
+        @apply bg-woodsmoke-900 scrollbar-thin;
+    }
+}
+
+@layer components {
+    /* .sidebarIcon {
+        @apply h-6 text-[#808080] cursor-pointer;
+    } */
+
+    .container {
+        @apply mx-auto max-w-7xl px-4 pb-24 font-moderat lg:px-8 xl:px-0;
+    }
+
+    .titleHeader {
+        @apply text-center font-moderat_extended text-3xl uppercase
+        tracking-wider text-slate-50 sm:text-4xl
+        md:text-5xl;
+    }
+
+    .card {
+        @apply cursor-pointer rounded-md border-2
+        border-slate-800 transition duration-200
+        hover:border-slate-600;
+    }
+
+    .cardTitle {
+        @apply truncate font-moderat  text-2xl
+        font-medium text-slate-50;
+    }
+
+    .infoTag {
+        @apply rounded-md bg-slate-800 px-2 py-1
+        text-sm uppercase text-slate-400;
+    }
+
+    .cardOverview {
+        @apply mb-auto text-slate-400 line-clamp-4 md:text-base;
+    }
+
+    .cardRating {
+        @apply text-xl text-slate-50;
+    }
+
+    .cardTheatreTag {
+        @apply rounded-md py-1 px-2 uppercase;
+    }
+
+    .theatreTabText {
+        @apply cursor-pointer text-2xl uppercase
+        text-slate-800 transition duration-200
+        ease-out hover:text-slate-50;
+    }
+
+    .sectionContainer {
+        @apply mt-14 sm:mt-16 lg:mt-24 xl:mt-32;
+    }
+
+    .sectionHeader {
+        @apply mb-8 text-left font-moderat_extended
+        text-4xl tracking-wide text-slate-50 lg:mb-12 xl:mb-12;
+    }
+
+    .sectionDateText {
+        @apply text-base uppercase
+        text-slate-600 hover:text-slate-50;
+    }
+
+    .cinemaTitle {
+        @apply text-lg capitalize text-slate-50;
+    }
+
+    .cinemaTheatreTitle {
+        @apply font-moderat_extended uppercase;
+    }
+
+    .cinemaDateSwiperArrow {
+        @apply cursor-pointer self-center
+        py-3 text-slate-400 hover:text-slate-200;
+    }
+
+    .cinemaDateSwiperLeft {
+        @apply cinemaDateSwiperArrow pr-8;
+    }
+
+    .cinemaDateSwiperRight {
+        @apply cinemaDateSwiperArrow pl-8;
+    }
+
+    .cinemaDateTab {
+        @apply w-full cursor-pointer border-b-2 border-transparent p-4
+        text-center text-sm uppercase transition
+        duration-200 xl:text-lg;
+    }
+
+    .cinemaDateTabSelected {
+        @apply cinemaDateTab border-slate-50 text-slate-50;
+    }
+
+    .cinemaDateTabUnselected {
+        @apply cinemaDateTab text-slate-600 hover:text-slate-50;
+    }
+
+    .cinemaTimingContainer {
+        @apply flex flex-col gap-y-16 xl:gap-y-24;
+    }
+
+    .cinemaTimingTextLine {
+        @apply cursor-pointer border-b-2 border-transparent py-4
+        px-6 text-center text-xl uppercase transition duration-200
+        xl:py-4 xl:px-0;
+    }
+
+    .cinemaTimingText {
+        @apply h-fit min-w-[8rem] cursor-pointer rounded-md
+        border-2 border-b-2 border-transparent border-slate-800 py-4 px-3 text-center
+        text-xl uppercase text-slate-400 transition
+        duration-200 hover:bg-slate-600 hover:text-slate-50
+        sm:py-4 sm:px-6 xl:py-2 xl:px-3;
+    }
+
+    .cinemaTimingTextSoldLine {
+        @apply cinemaTimingText text-slate-800;
+    }
+
+    .cinemaTimingTextSold {
+        @apply cinemaTimingText bg-slate-800 text-slate-600
+        line-through hover:bg-slate-800
+        hover:text-slate-600;
+    }
+
+    .cinemaTimingTextSellingLine {
+        @apply cinemaTimingText text-slate-400
+        hover:border-red-500 hover:text-red-500;
+    }
+
+    .cinemaTimingTextSelling {
+        @apply cinemaTimingText border-slate-500 underline;
+    }
+
+    .cinemaTimingTextAvailableLine {
+        @apply cinemaTimingText text-slate-400
+        hover:border-slate-50;
+    }
+
+    .cinemaTimingTextAvailable {
+        @apply cinemaTimingText;
+    }
+
+    .reviewText {
+        @apply text-slate-400;
+    }
+
+    .reviewAuthorName {
+        @apply text-sm capitalize text-slate-50;
+    }
+
+    .reviewAuthorCompany {
+        @apply text-sm text-slate-400;
+    }
+
+    .reviewRatingText {
+        @apply text-right text-lg text-gv-yellow;
+    }
+
+    .reviewDateText {
+        @apply text-sm text-slate-400;
+    }
+}
