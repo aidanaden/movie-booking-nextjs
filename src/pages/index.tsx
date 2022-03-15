@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 
-import TheatreTabs from '../components/TheatreTabs'
 import MovieList from '../components/MovieList'
 
 export default function Home({ data }) {
